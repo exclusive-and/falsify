@@ -1,5 +1,5 @@
 -- | Simple (i.e., non-compound) generators
-module Test.Falsify.Reexported.Generator.Simple (
+module Test.Falsify.Gen.Simple (
     bool
   , inRange
   , integral
@@ -14,8 +14,8 @@ import Data.Word
 
 import Test.Falsify.Internal.Generator
 import Test.Falsify.Internal.Range
-import Test.Falsify.Internal.SampleTree (Sample(..), sampleValue)
-import Test.Falsify.Reexported.Generator.Precision
+import Test.Falsify.SampleTree (Sample(..), sampleValue)
+import Test.Falsify.Gen.Precision
 
 import qualified Test.Falsify.Range as Range
 

@@ -83,9 +83,9 @@ library
   import:
       lang
   exposed-modules:
-      Test.Falsify.GenDefault
-      Test.Falsify.GenDefault.Std
-      Test.Falsify.Generator
+      Test.Falsify.Gen.Default
+      Test.Falsify.Gen.Std
+      Test.Falsify.Gen
       Test.Falsify.Interactive
       Test.Falsify.Predicate
       Test.Falsify.Property
@@ -95,21 +95,21 @@ library
       -- in the @Test.Tasty.*@ hiearchy instead of @Test.Falsify.*@.
       Test.Tasty.Falsify
   other-modules:
-      Test.Falsify.Internal.Driver
-      Test.Falsify.Internal.Driver.ReplaySeed
-      Test.Falsify.Internal.Driver.Tasty
+      Test.Falsify.Algorithm
+      Test.Falsify.Gen.Compound
+      Test.Falsify.Gen.Function
+      Test.Falsify.Gen.Monad
+      Test.Falsify.Gen.Precision
+      Test.Falsify.Gen.Shrinking
+      Test.Falsify.Gen.Simple
       Test.Falsify.Internal.Generator
-      Test.Falsify.Internal.Generator.Definition
-      Test.Falsify.Internal.Generator.Shrinking
       Test.Falsify.Internal.Property
       Test.Falsify.Internal.Range
-      Test.Falsify.Internal.SampleTree
-      Test.Falsify.Internal.Search
-      Test.Falsify.Reexported.Generator.Compound
-      Test.Falsify.Reexported.Generator.Function
-      Test.Falsify.Reexported.Generator.Precision
-      Test.Falsify.Reexported.Generator.Shrinking
-      Test.Falsify.Reexported.Generator.Simple
+      Test.Falsify.ReplaySeed
+      Test.Falsify.SampleTree
+      Test.Falsify.Search
+      Test.Falsify.Shrinking
+      Test.Falsify.Tasty
 
       Data.Falsify.Integer
       Data.Falsify.List

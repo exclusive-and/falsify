@@ -1,8 +1,8 @@
-module Test.Falsify.GenDefault.Std
+module Test.Falsify.Gen.Std
   ( Std
   ) where
 
-import Test.Falsify.GenDefault (ViaIntegral (..), GenDefault, ViaEnum (..), ViaGeneric (..))
+import Test.Falsify.Gen.Default (ViaIntegral (..), GenDefault, ViaEnum (..), ViaGeneric (..))
 import Data.Int (Int8, Int16, Int32, Int64)
 import Data.Word (Word8, Word16, Word32, Word64)
 

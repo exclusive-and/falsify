@@ -1,4 +1,4 @@
-module Test.Falsify.Internal.Search (
+module Test.Falsify.Search (
     -- * Binary search
     binarySearch
   , binarySearchNoParityBias

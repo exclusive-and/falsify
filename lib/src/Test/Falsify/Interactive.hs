@@ -20,15 +20,15 @@ import System.Random.SplitMix
 
 import qualified Data.List.NonEmpty as NE
 
-import Test.Falsify.Internal.Driver.ReplaySeed
+import Test.Falsify.ReplaySeed
 import Test.Falsify.Internal.Generator
-import Test.Falsify.Internal.Generator.Shrinking
+import Test.Falsify.Shrinking
 import Test.Falsify.Internal.Property
 import Test.Falsify.Property
 
-import qualified Test.Falsify.Generator           as Gen
-import qualified Test.Falsify.Internal.Driver     as Driver
-import qualified Test.Falsify.Internal.SampleTree as SampleTree
+import qualified Test.Falsify.Gen        as Gen
+import qualified Test.Falsify.Algorithm  as Driver
+import qualified Test.Falsify.SampleTree as SampleTree
 
 -- | Sample generator
 sample :: Gen a -> IO a

@@ -4,7 +4,7 @@
 --
 -- > import Test.Falsify.Generator (Gen)
 -- > import qualified Test.Falsify.Generator qualified as Gen
-module Test.Falsify.Generator (
+module Test.Falsify.Gen (
     -- * Definition
     Gen -- opaque
     -- * Simple (non-compound) generators
@@ -86,9 +86,9 @@ import Prelude hiding (either, elem, properFraction)
 import Data.Falsify.List
 import Data.Falsify.Marked
 import Test.Falsify.Internal.Generator
-import Test.Falsify.Reexported.Generator.Compound
-import Test.Falsify.Reexported.Generator.Function
-import Test.Falsify.Reexported.Generator.Precision
-import Test.Falsify.Reexported.Generator.Shrinking
-import Test.Falsify.Reexported.Generator.Simple
+import Test.Falsify.Gen.Compound
+import Test.Falsify.Gen.Function
+import Test.Falsify.Gen.Precision
+import Test.Falsify.Gen.Shrinking
+import Test.Falsify.Gen.Simple
 import Data.Falsify.Tree

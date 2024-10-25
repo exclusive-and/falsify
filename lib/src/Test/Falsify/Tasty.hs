@@ -3,7 +3,7 @@
 --
 -- This are the internal guts of the integration. Publicly visible API lives in
 -- "Test.Tasty.Falsify".
-module Test.Falsify.Internal.Driver.Tasty (
+module Test.Falsify.Tasty (
     -- * Test property
     testProperty
     -- * Configure test behaviour
@@ -25,8 +25,8 @@ import Test.Tasty.Providers (IsTest(..))
 
 import qualified Test.Tasty.Options as Tasty
 
-import Test.Falsify.Internal.Driver
-import Test.Falsify.Internal.Driver.ReplaySeed
+import Test.Falsify.Algorithm
+import Test.Falsify.ReplaySeed
 import Test.Falsify.Internal.Property
 
 import qualified Options.Applicative  as Opts

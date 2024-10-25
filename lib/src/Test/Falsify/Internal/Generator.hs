@@ -22,5 +22,5 @@ module Test.Falsify.Internal.Generator (
   , withoutShrinking
   ) where
 
-import Test.Falsify.Internal.Generator.Definition
-import Test.Falsify.Internal.Generator.Shrinking
+import Test.Falsify.Gen.Monad
+import Test.Falsify.Shrinking

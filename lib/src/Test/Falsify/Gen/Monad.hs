@@ -1,4 +1,4 @@
-module Test.Falsify.Internal.Generator.Definition (
+module Test.Falsify.Gen.Monad (
     -- * Definition
     Gen(..)
   , bindWithoutShortcut
@@ -23,10 +23,10 @@ import Optics.Core (Lens', (%))
 import qualified Optics.Core as Optics
 
 import Data.Falsify.Integer (Bit(..), encIntegerEliasG)
-import Test.Falsify.Internal.SampleTree (SampleTree(..), Sample (..), pattern Inf)
-import Test.Falsify.Internal.Search
+import Test.Falsify.SampleTree (SampleTree(..), Sample (..), pattern Inf)
+import Test.Falsify.Search
 
-import qualified Test.Falsify.Internal.SampleTree as SampleTree
+import qualified Test.Falsify.SampleTree as SampleTree
 
 {-------------------------------------------------------------------------------
   Definition

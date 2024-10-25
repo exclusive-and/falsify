@@ -1,10 +1,10 @@
--- | Test driver
+-- | Test falsification algorithm
 --
 -- Intended for qualified import.
 --
--- > import Test.Falsify.Internal.Driver (Success, Failure, falsify)
--- > import qualified Test.Falsify.Internal.Driver as Driver
-module Test.Falsify.Internal.Driver (
+-- > import Test.Falsify.Algorithm (Success, Failure, falsify)
+-- > import qualified Test.Falsify.Algorithm as Falsify
+module Test.Falsify.Algorithm (
     -- * Options
     Options(..)
     -- * Results
@@ -36,13 +36,13 @@ import qualified Data.List.NonEmpty as NE
 import qualified Data.Map           as Map
 import qualified Data.Set           as Set
 
-import Test.Falsify.Internal.Driver.ReplaySeed
+import Test.Falsify.ReplaySeed
 import Test.Falsify.Internal.Generator
-import Test.Falsify.Internal.Generator.Shrinking
+import Test.Falsify.Shrinking
 import Test.Falsify.Internal.Property
-import Test.Falsify.Internal.SampleTree (SampleTree)
+import Test.Falsify.SampleTree (SampleTree)
 
-import qualified Test.Falsify.Internal.SampleTree as SampleTree
+import qualified Test.Falsify.SampleTree as SampleTree
 
 {-------------------------------------------------------------------------------
   Options

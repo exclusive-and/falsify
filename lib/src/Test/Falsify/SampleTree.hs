@@ -2,9 +2,9 @@
 --
 -- Intended for qualified import.
 --
--- import Test.Falsify.Internal.SampleTree (SampleTree(..))
--- import qualified Test.Falsify.Internal.SampleTree as SampleTree
-module Test.Falsify.Internal.SampleTree (
+-- import Test.Falsify.SampleTree (SampleTree(..))
+-- import qualified Test.Falsify.SampleTree as SampleTree
+module Test.Falsify.SampleTree (
     -- * Definition
     SampleTree(..)
   , Sample(..)

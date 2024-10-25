@@ -1,4 +1,4 @@
-module Test.Falsify.Reexported.Generator.Function (
+module Test.Falsify.Gen.Function (
     Fun -- opaque
   , applyFun
   , pattern Fn
@@ -31,8 +31,8 @@ import qualified Data.Ratio as Ratio
 
 import Data.Falsify.Tree (Tree, Interval(..), Endpoint(..))
 import Test.Falsify.Internal.Generator (Gen)
-import Test.Falsify.Reexported.Generator.Shrinking
-import Test.Falsify.Reexported.Generator.Compound
+import Test.Falsify.Gen.Shrinking
+import Test.Falsify.Gen.Compound
 
 import qualified Data.Falsify.Tree as Tree
 

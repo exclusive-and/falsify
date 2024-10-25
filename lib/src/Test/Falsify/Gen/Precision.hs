@@ -1,5 +1,5 @@
 -- | Fixed precision generators
-module Test.Falsify.Reexported.Generator.Precision (
+module Test.Falsify.Gen.Precision (
     -- * @n@-bit words
     WordN(..)
   , wordN
@@ -15,8 +15,8 @@ import GHC.Stack
 
 import Test.Falsify.Internal.Generator
 import Test.Falsify.Internal.Range
-import Test.Falsify.Internal.SampleTree (sampleValue)
-import Test.Falsify.Internal.Search
+import Test.Falsify.SampleTree (sampleValue)
+import Test.Falsify.Search
 
 {-------------------------------------------------------------------------------
   @n@-bit word

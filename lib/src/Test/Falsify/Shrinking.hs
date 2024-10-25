@@ -1,4 +1,4 @@
-module Test.Falsify.Internal.Generator.Shrinking (
+module Test.Falsify.Shrinking (
     -- * Shrinking
     shrinkFrom
     -- * With full history
@@ -14,8 +14,8 @@ import Data.Bifunctor
 import Data.Either
 import Data.List.NonEmpty (NonEmpty((:|)))
 
-import Test.Falsify.Internal.Generator.Definition
-import Test.Falsify.Internal.SampleTree (SampleTree(..))
+import Test.Falsify.Gen.Monad
+import Test.Falsify.SampleTree (SampleTree(..))
 
 {-------------------------------------------------------------------------------
   Explanation

@@ -1,4 +1,4 @@
-module Test.Falsify.Reexported.Generator.Shrinking (
+module Test.Falsify.Gen.Shrinking (
     -- * User-specified shrinking
     shrinkToOneOf
   , firstThen
@@ -15,7 +15,7 @@ import Data.Word
 import qualified Data.Tree as Rose
 
 import Test.Falsify.Internal.Generator
-import Test.Falsify.Internal.SampleTree (Sample(..), SampleTree)
+import Test.Falsify.SampleTree (Sample(..), SampleTree)
 
 {-------------------------------------------------------------------------------
   Specialized shrinking behaviour

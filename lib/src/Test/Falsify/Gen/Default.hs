@@ -4,7 +4,7 @@
 -- some DerivingVia helpers. Our version, 'GenDefault', allows one to choose between
 -- sets of default generators with a user-defined tag. See 'Test.Falsify.GenDefault.Std' for
 -- the standard tag with a few useful instances.
-module Test.Falsify.GenDefault
+module Test.Falsify.Gen.Default
   ( GenDefault (..)
   , ViaTag (..)
   , ViaIntegral (..)
@@ -17,8 +17,8 @@ module Test.Falsify.GenDefault
 import Control.Applicative (liftA2)
 import Data.Proxy (Proxy (..))
 import GHC.Generics (Generic (..), K1 (..), M1 (..), U1 (..), (:+:) (..), (:*:) (..))
-import Test.Falsify.Generator (Gen)
-import qualified Test.Falsify.Generator as Gen
+import Test.Falsify.Gen (Gen)
+import qualified Test.Falsify.Gen as Gen
 import qualified Test.Falsify.Range as Range
 import Data.Bits (FiniteBits)
 import GHC.Exts (IsList (..), IsString (..))

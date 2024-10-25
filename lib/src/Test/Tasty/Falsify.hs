@@ -21,8 +21,8 @@ module Test.Tasty.Falsify (
   , pattern Gen.Fn3
   ) where
 
-import Test.Falsify.Generator (Gen)
-import Test.Falsify.Internal.Driver.Tasty
+import Test.Falsify.Gen (Gen)
+import Test.Falsify.Tasty
 import Test.Falsify.Property
 
-import qualified Test.Falsify.Reexported.Generator.Function as Gen
+import qualified Test.Falsify.Gen.Function as Gen

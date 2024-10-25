@@ -51,11 +51,11 @@ import qualified Data.Set as Set
 import Control.Monad.Fail (MonadFail(..))
 #endif
 
-import Test.Falsify.Generator (Gen)
-import Test.Falsify.Internal.Generator.Shrinking
+import Test.Falsify.Gen (Gen)
+import Test.Falsify.Shrinking
 import Test.Falsify.Predicate (Predicate, (.$))
 
-import qualified Test.Falsify.Generator          as Gen
+import qualified Test.Falsify.Gen                as Gen
 import qualified Test.Falsify.Internal.Generator as Gen
 import qualified Test.Falsify.Predicate          as P
 
