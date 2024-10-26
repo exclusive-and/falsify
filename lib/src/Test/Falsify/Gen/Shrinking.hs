@@ -2,14 +2,17 @@ module Test.Falsify.Gen.Shrinking (
     -- * User-specified shrinking
     shrinkToOneOf
   , firstThen
+  , shrinkToNothing
+  , mark
   , shrinkWith
-    -- * Support for shrink trees
+    -- * Shrink tree conversions
   , fromShrinkTree
   , toShrinkTree
   ) where
 
 import Prelude hiding (properFraction)
 
+import Data.Falsify.Marked
 import Data.Tree qualified as Rose
 import Data.Word
 import Test.Falsify.Gen
@@ -68,6 +71,17 @@ shrinkToOneOf x xs =
 -- | Generator that always produces @x@ as initial value, and shrinks to @y@
 firstThen :: forall a. a -> a -> Gen a
 firstThen x y = x `shrinkToOneOf` [y]
+
+-- | Start with @Just x@ for some @x@, then shrink to @Nothing@
+shrinkToNothing :: Gen a -> Gen (Maybe a)
+shrinkToNothing g = firstThen Just (const Nothing) <*> g
+
+-- | Mark an element, shrinking towards 'Drop'
+--
+-- This is similar to 'shrinkToNothing', except that 'Marked' still has a value
+-- in the 'Drop' case: marks are merely hints, that we may or may not use.
+mark :: Gen a -> Gen (Marked Gen a)
+mark x = flip Marked x <$> firstThen Keep Drop
 
 -- | Shrink with provided shrinker
 --

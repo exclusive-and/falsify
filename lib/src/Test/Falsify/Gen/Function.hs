@@ -28,8 +28,8 @@ import Data.Word
 import GHC.Generics
 import Numeric.Natural
 import Test.Falsify.Gen (Gen)
-import Test.Falsify.Gen.Compound
 import Test.Falsify.Gen.Shrinking
+import Test.Falsify.Gen.Tree
 import Data.Falsify.Tree (Tree, Interval(..), Endpoint(..))
 import Data.Falsify.Tree qualified as Tree
 

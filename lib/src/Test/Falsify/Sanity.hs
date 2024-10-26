@@ -15,9 +15,9 @@ import Control.Monad.State
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty)
 import Test.Falsify.Gen (Gen)
-import Test.Falsify.Gen           qualified as Gen
-import Test.Falsify.Gen.Compound  qualified as Gen
-import Test.Falsify.Gen.Shrinking qualified as Gen
+import Test.Falsify.Gen            qualified as Gen
+import Test.Falsify.Gen.Shrinking  qualified as Gen
+import Test.Falsify.Gen.ShrinkTree qualified as Gen
 import Test.Falsify.Predicate (Predicate, (.$))
 import Test.Falsify.Predicate qualified as P
 import Test.Falsify.Property

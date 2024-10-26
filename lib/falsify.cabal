@@ -84,9 +84,19 @@ library
   import:
       lang
   exposed-modules:
-      Test.Falsify.Gen.Default
-      Test.Falsify.Gen.Std
+      Test.Falsify
       Test.Falsify.Gen
+      Test.Falsify.Gen.Choice
+      Test.Falsify.Gen.Default
+      Test.Falsify.Gen.Distribution
+      Test.Falsify.Gen.Function
+      Test.Falsify.Gen.List
+      Test.Falsify.Gen.Precision
+      Test.Falsify.Gen.Shrinking
+      Test.Falsify.Gen.ShrinkTree
+      Test.Falsify.Gen.Simple
+      Test.Falsify.Gen.Std
+      Test.Falsify.Gen.Tree
       Test.Falsify.Interactive
       Test.Falsify.Predicate
       Test.Falsify.Property
@@ -96,12 +106,6 @@ library
       -- in the @Test.Tasty.*@ hiearchy instead of @Test.Falsify.*@.
       Test.Tasty.Falsify
   other-modules:
-      Test.Falsify
-      Test.Falsify.Gen.Compound
-      Test.Falsify.Gen.Function
-      Test.Falsify.Gen.Precision
-      Test.Falsify.Gen.Shrinking
-      Test.Falsify.Gen.Simple
       Test.Falsify.Pretty
       Test.Falsify.ReplaySeed
       Test.Falsify.Result

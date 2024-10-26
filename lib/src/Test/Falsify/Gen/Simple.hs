@@ -46,4 +46,3 @@ inRange r = Range.eval properFraction r
 -- | Type-specialization of 'inRange'
 int :: Range Int -> Gen Int
 int = inRange
-

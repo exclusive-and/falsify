@@ -21,9 +21,10 @@ import GHC.Exts (IsList (..), IsString (..))
 import GHC.Generics (Generic (..), K1 (..), M1 (..), U1 (..), (:+:) (..), (:*:) (..))
 import GHC.TypeLits (KnownNat, natVal, Nat)
 import Test.Falsify.Gen (Gen)
-import Test.Falsify.Gen.Compound qualified as Gen
-import Test.Falsify.Gen.Simple   qualified as Gen
-import Test.Falsify.Range        qualified as Range
+import Test.Falsify.Gen.Choice qualified as Gen
+import Test.Falsify.Gen.List   qualified as Gen
+import Test.Falsify.Gen.Simple qualified as Gen
+import Test.Falsify.Range      qualified as Range
 
 class GenDefault tag a where
   -- | Default generator for @a@
