@@ -9,12 +9,10 @@ import Prelude hiding (properFraction)
 
 import Data.Bits
 import Data.Word
-
-import Test.Falsify.Gen.Monad
-import Test.Falsify.SampleTree (Sample(..), sampleValue)
+import Test.Falsify.Gen
 import Test.Falsify.Gen.Precision
-
 import Test.Falsify.Range as Range
+import Test.Falsify.SampleTree (Sample(..), sampleValue)
 
 {-------------------------------------------------------------------------------
   Simple generators

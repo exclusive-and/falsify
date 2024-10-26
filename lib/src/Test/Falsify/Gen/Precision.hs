@@ -12,8 +12,7 @@ import Prelude hiding (properFraction)
 import Data.Bits
 import Data.Word
 import GHC.Stack
-
-import Test.Falsify.Gen.Monad
+import Test.Falsify.Gen
 import Test.Falsify.Range
 import Test.Falsify.SampleTree (sampleValue)
 import Test.Falsify.Search

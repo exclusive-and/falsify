@@ -23,18 +23,15 @@ import Data.Kind
 import Data.List (intercalate)
 import Data.Maybe (fromMaybe, mapMaybe)
 import Data.Ratio (Ratio)
+import Data.Ratio qualified as Ratio
 import Data.Word
 import GHC.Generics
 import Numeric.Natural
-
-import qualified Data.Ratio as Ratio
-
-import Data.Falsify.Tree (Tree, Interval(..), Endpoint(..))
-import Test.Falsify.Gen.Monad (Gen)
-import Test.Falsify.Gen.Shrinking
+import Test.Falsify.Gen (Gen)
 import Test.Falsify.Gen.Compound
-
-import qualified Data.Falsify.Tree as Tree
+import Test.Falsify.Gen.Shrinking
+import Data.Falsify.Tree (Tree, Interval(..), Endpoint(..))
+import Data.Falsify.Tree qualified as Tree
 
 {-------------------------------------------------------------------------------
   Functions that can be shrunk and shown

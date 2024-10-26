@@ -15,14 +15,15 @@ module Test.Falsify.Gen.Default
   ) where
 
 import Control.Applicative (liftA2)
-import Data.Proxy (Proxy (..))
-import GHC.Generics (Generic (..), K1 (..), M1 (..), U1 (..), (:+:) (..), (:*:) (..))
-import Test.Falsify.Gen (Gen)
-import qualified Test.Falsify.Gen as Gen
-import qualified Test.Falsify.Range as Range
 import Data.Bits (FiniteBits)
+import Data.Proxy (Proxy (..))
 import GHC.Exts (IsList (..), IsString (..))
+import GHC.Generics (Generic (..), K1 (..), M1 (..), U1 (..), (:+:) (..), (:*:) (..))
 import GHC.TypeLits (KnownNat, natVal, Nat)
+import Test.Falsify.Gen (Gen)
+import Test.Falsify.Gen.Compound qualified as Gen
+import Test.Falsify.Gen.Simple   qualified as Gen
+import Test.Falsify.Range        qualified as Range
 
 class GenDefault tag a where
   -- | Default generator for @a@

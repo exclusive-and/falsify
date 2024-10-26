@@ -19,8 +19,8 @@ import Data.List.NonEmpty (NonEmpty(..))
 import Data.List.NonEmpty qualified as NE
 import System.Random.SplitMix
 import Test.Falsify     qualified as Driver
-import Test.Falsify.Gen qualified as Gen
-import Test.Falsify.Gen.Monad
+import Test.Falsify.Gen (Gen, runGen)
+import Test.Falsify.Gen.Function qualified as Gen
 import Test.Falsify.Property
 import Test.Falsify.ReplaySeed
 import Test.Falsify.SampleTree qualified as SampleTree

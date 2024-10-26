@@ -20,7 +20,7 @@ import Prelude hiding (log)
 import Data.Bifunctor
 import Data.Default
 import System.Random.SplitMix
-import Test.Falsify.Gen.Monad
+import Test.Falsify.Gen
 import Test.Falsify.Property
 import Test.Falsify.ReplaySeed
 import Test.Falsify.Result

@@ -62,6 +62,7 @@ common lang
       FlexibleInstances
       GADTs
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       KindSignatures
       LambdaCase
@@ -95,21 +96,19 @@ library
       -- in the @Test.Tasty.*@ hiearchy instead of @Test.Falsify.*@.
       Test.Tasty.Falsify
   other-modules:
-      Test.Falsify.Algorithm
+      Test.Falsify
       Test.Falsify.Gen.Compound
       Test.Falsify.Gen.Function
-      Test.Falsify.Gen.Monad
       Test.Falsify.Gen.Precision
       Test.Falsify.Gen.Shrinking
       Test.Falsify.Gen.Simple
-      Test.Falsify.Internal.Generator
-      Test.Falsify.Internal.Property
-      Test.Falsify.Internal.Range
+      Test.Falsify.Pretty
       Test.Falsify.ReplaySeed
+      Test.Falsify.Result
       Test.Falsify.SampleTree
+      Test.Falsify.Sanity
       Test.Falsify.Search
       Test.Falsify.Shrinking
-      Test.Falsify.Tasty
 
       Data.Falsify.Integer
       Data.Falsify.List

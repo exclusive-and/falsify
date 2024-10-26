@@ -2,9 +2,9 @@ module Test.Falsify.Gen.Std
   ( Std
   ) where
 
-import Test.Falsify.Gen.Default (ViaIntegral (..), GenDefault, ViaEnum (..), ViaGeneric (..))
-import Data.Int (Int8, Int16, Int32, Int64)
-import Data.Word (Word8, Word16, Word32, Word64)
+import Data.Int
+import Data.Word
+import Test.Falsify.Gen.Default
 
 -- | Type tag for these "standard" default generators.
 -- You can use this tag directly or choose type-by-type with 'ViaTag'.

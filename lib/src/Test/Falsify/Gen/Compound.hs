@@ -32,25 +32,22 @@ import Prelude hiding (either, elem)
 import Control.Monad
 import Control.Selective
 import Data.Either (either)
-import Data.List.NonEmpty (NonEmpty(..))
-import Data.Maybe (catMaybes)
-import Data.Void
-
-import qualified Data.List.NonEmpty as NE
-import qualified Data.Tree          as Rose
-
 import Data.Falsify.List (Permutation)
+import Data.Falsify.List qualified as List
 import Data.Falsify.Marked
 import Data.Falsify.Tree (Tree(..), Interval(..), Endpoint(..))
-import Test.Falsify.Gen.Monad
-import Test.Falsify.Shrinking (IsValidShrink(..))
-import Test.Falsify.Range (Range)
+import Data.Falsify.Tree qualified as Tree
+import Data.List.NonEmpty (NonEmpty(..))
+import Data.List.NonEmpty qualified as NE
+import Data.Maybe (catMaybes)
+import Data.Tree qualified as Rose
+import Data.Void
+import Test.Falsify.Gen
 import Test.Falsify.Gen.Shrinking
 import Test.Falsify.Gen.Simple
-
-import qualified Data.Falsify.List  as List
-import qualified Data.Falsify.Tree  as Tree
-import qualified Test.Falsify.Range as Range
+import Test.Falsify.Shrinking (IsValidShrink(..))
+import Test.Falsify.Range (Range)
+import Test.Falsify.Range qualified as Range
 
 {-------------------------------------------------------------------------------
   Taking advantage of 'Selective'

@@ -13,8 +13,7 @@ module Test.Falsify.Shrinking (
 import Data.Bifunctor
 import Data.Either
 import Data.List.NonEmpty (NonEmpty((:|)))
-
-import Test.Falsify.Gen.Monad
+import Test.Falsify.Gen
 import Test.Falsify.SampleTree (SampleTree(..))
 
 {-------------------------------------------------------------------------------
