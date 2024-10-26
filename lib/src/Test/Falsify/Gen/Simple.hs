@@ -2,8 +2,6 @@
 module Test.Falsify.Gen.Simple (
     bool
   , inRange
-  , integral
-  , enum
   , int
   ) where
 
@@ -12,12 +10,11 @@ import Prelude hiding (properFraction)
 import Data.Bits
 import Data.Word
 
-import Test.Falsify.Internal.Generator
-import Test.Falsify.Internal.Range
+import Test.Falsify.Gen.Monad
 import Test.Falsify.SampleTree (Sample(..), sampleValue)
 import Test.Falsify.Gen.Precision
 
-import qualified Test.Falsify.Range as Range
+import Test.Falsify.Range as Range
 
 {-------------------------------------------------------------------------------
   Simple generators
@@ -47,16 +44,6 @@ bool target = aux . sampleValue <$> primWith shrinker
 -- | Generate value in the specified range
 inRange :: Range a -> Gen a
 inRange r = Range.eval properFraction r
-
--- | Deprecated alias for 'inRange'
-integral :: Range a -> Gen a
-{-# DEPRECATED integral "Use inRange instead" #-}
-integral = inRange
-
--- | Deprecated alias for 'inRange'
-enum :: Range a -> Gen a
-{-# DEPRECATED enum "Use inRange instead" #-}
-enum = inRange
 
 -- | Type-specialization of 'inRange'
 int :: Range Int -> Gen Int

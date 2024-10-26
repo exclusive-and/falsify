@@ -42,7 +42,7 @@ import qualified Data.Tree          as Rose
 import Data.Falsify.List (Permutation)
 import Data.Falsify.Marked
 import Data.Falsify.Tree (Tree(..), Interval(..), Endpoint(..))
-import Test.Falsify.Internal.Generator
+import Test.Falsify.Gen.Monad
 import Test.Falsify.Shrinking (IsValidShrink(..))
 import Test.Falsify.Range (Range)
 import Test.Falsify.Gen.Shrinking

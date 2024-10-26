@@ -1,6 +1,7 @@
 module Test.Falsify.Gen.Monad (
     -- * Definition
-    Gen(..)
+    Gen
+  , runGen
   , bindWithoutShortcut
     -- * Primitive generators
   , prim

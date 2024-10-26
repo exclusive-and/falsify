@@ -13,8 +13,8 @@ import Data.Bits
 import Data.Word
 import GHC.Stack
 
-import Test.Falsify.Internal.Generator
-import Test.Falsify.Internal.Range
+import Test.Falsify.Gen.Monad
+import Test.Falsify.Range
 import Test.Falsify.SampleTree (sampleValue)
 import Test.Falsify.Search
 

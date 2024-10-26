@@ -10,8 +10,6 @@ module Test.Falsify.Gen (
     -- * Simple (non-compound) generators
   , bool
   , inRange
-  , integral
-  , enum
   , int
     -- * Compound generators
     -- ** Taking advantage of 'Selective'
@@ -85,7 +83,7 @@ import Prelude hiding (either, elem, properFraction)
 
 import Data.Falsify.List
 import Data.Falsify.Marked
-import Test.Falsify.Internal.Generator
+import Test.Falsify.Gen.Monad
 import Test.Falsify.Gen.Compound
 import Test.Falsify.Gen.Function
 import Test.Falsify.Gen.Precision

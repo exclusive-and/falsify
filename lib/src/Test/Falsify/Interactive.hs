@@ -16,19 +16,16 @@ module Test.Falsify.Interactive (
 import Data.Bifunctor
 import Data.Default
 import Data.List.NonEmpty (NonEmpty(..))
+import Data.List.NonEmpty qualified as NE
 import System.Random.SplitMix
-
-import qualified Data.List.NonEmpty as NE
-
-import Test.Falsify.ReplaySeed
-import Test.Falsify.Internal.Generator
-import Test.Falsify.Shrinking
-import Test.Falsify.Internal.Property
+import Test.Falsify     qualified as Driver
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Gen.Monad
 import Test.Falsify.Property
-
-import qualified Test.Falsify.Gen        as Gen
-import qualified Test.Falsify.Algorithm  as Driver
-import qualified Test.Falsify.SampleTree as SampleTree
+import Test.Falsify.ReplaySeed
+import Test.Falsify.SampleTree qualified as SampleTree
+import Test.Falsify.Sanity
+import Test.Falsify.Shrinking
 
 -- | Sample generator
 sample :: Gen a -> IO a

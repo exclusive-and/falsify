@@ -30,7 +30,7 @@ import Numeric.Natural
 import qualified Data.Ratio as Ratio
 
 import Data.Falsify.Tree (Tree, Interval(..), Endpoint(..))
-import Test.Falsify.Internal.Generator (Gen)
+import Test.Falsify.Gen.Monad (Gen)
 import Test.Falsify.Gen.Shrinking
 import Test.Falsify.Gen.Compound
 

@@ -14,7 +14,7 @@ import Data.Word
 
 import qualified Data.Tree as Rose
 
-import Test.Falsify.Internal.Generator
+import Test.Falsify.Gen.Monad
 import Test.Falsify.SampleTree (Sample(..), SampleTree)
 
 {-------------------------------------------------------------------------------
