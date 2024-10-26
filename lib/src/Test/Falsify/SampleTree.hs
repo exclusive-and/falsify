@@ -1,9 +1,3 @@
--- | Sample tree
---
--- Intended for qualified import.
---
--- import Test.Falsify.SampleTree (SampleTree(..))
--- import qualified Test.Falsify.SampleTree as SampleTree
 module Test.Falsify.SampleTree (
     -- * Definition
     SampleTree(..)
@@ -22,25 +16,19 @@ module Test.Falsify.SampleTree (
     -- * Combinators
   , map
   , mod
+  , combineShrunk
   ) where
 
 import Prelude hiding (map, mod)
-import qualified Prelude
+import Prelude qualified
 
+import Data.List.NonEmpty (NonEmpty((:|)))
 import Data.Word
-import Optics.Core (Lens')
+import Optics.Core (Lens', lens)
 import System.Random.SplitMix
 
-import qualified Optics.Core as Optics
-
-{-------------------------------------------------------------------------------
-  Definition
--------------------------------------------------------------------------------}
-
--- | Sample tree
---
--- A sample tree is a (conceptually and sometimes actually) infinite tree
--- representing drawing values from and splitting a PRNG.
+-- | A sample tree is a (conceptually and sometimes actually) infinite tree
+--   representing drawing values from and splitting a PRNG.
 data SampleTree =
     -- | Default constructor
     --
@@ -63,14 +51,8 @@ data SampleTree =
   | Minimal
   deriving (Show)
 
-{-------------------------------------------------------------------------------
-  Samples
--------------------------------------------------------------------------------}
-
--- | Sample
---
--- The samples in the 'SampleTree' record if they were the originally produced
--- sample, or whether they have been shrunk.
+-- | The samples in the 'SampleTree' record if they were the originally produced
+--   sample, or whether they have been shrunk.
 data Sample =
     NotShrunk Word64
   | Shrunk    Word64
@@ -101,7 +83,7 @@ pattern Inf s l r <- (view -> (s, l, r))
 -------------------------------------------------------------------------------}
 
 next :: Lens' SampleTree Sample
-next = Optics.lens getter setter
+next = lens getter setter
   where
     getter :: SampleTree -> Sample
     getter (Inf s _ _) = s
@@ -111,7 +93,7 @@ next = Optics.lens getter setter
     setter (SampleTree _ l r) s = SampleTree s l r
 
 left :: Lens' SampleTree SampleTree
-left = Optics.lens getter setter
+left = lens getter setter
   where
     getter :: SampleTree -> SampleTree
     getter (Inf _ l _) = l
@@ -121,7 +103,7 @@ left = Optics.lens getter setter
     setter (SampleTree s _ r) l = SampleTree s l r
 
 right :: Lens' SampleTree SampleTree
-right = Optics.lens getter setter
+right = lens getter setter
   where
     getter :: SampleTree -> SampleTree
     getter (Inf _ _ r) = r
@@ -175,8 +157,6 @@ constant s = go
 -- This means that we have
 --
 -- > map f M == M
---
--- This is primarily useful for debugging.
 map :: (Word64 -> Word64) -> SampleTree -> SampleTree
 map f = go
   where
@@ -189,8 +169,25 @@ map f = go
     mapSample (Shrunk    s) = Shrunk    (f s)
 
 -- | Apply @mod m@ at every sample in the tree
---
--- This is primarily useful for debugging.
 mod :: Word64 -> SampleTree -> SampleTree
 mod m = map (\s -> s `Prelude.mod` m)
 
+-- | Combine shrunk left and right sample trees
+combineShrunk ::
+     Sample
+  -> NonEmpty SampleTree -- ^ Original and shrunk left  trees
+  -> NonEmpty SampleTree -- ^ Original and shrunk right trees
+  -> [SampleTree]
+combineShrunk s (l :| ls) (r :| rs) = shortcut $ concat [
+      [SampleTree s l' r  | l' <- unlessMinimal l ls]
+    , [SampleTree s l  r' | r' <- unlessMinimal r rs]
+    ]
+  where
+    -- We must be careful not to force @ls@/@rs@ if the tree is already minimal.
+    unlessMinimal :: SampleTree -> [a] -> [a]
+    unlessMinimal Minimal _  = []
+    unlessMinimal _       xs = xs
+
+    shortcut :: [SampleTree] -> [SampleTree]
+    shortcut [] = []
+    shortcut ts = Minimal : ts
