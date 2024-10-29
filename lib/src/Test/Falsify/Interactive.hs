@@ -25,7 +25,7 @@ import Test.Falsify.Property
 import Test.Falsify.ReplaySeed
 import Test.Falsify.SampleTree qualified as SampleTree
 import Test.Falsify.Sanity
-import Test.Falsify.Shrinking
+import Test.Falsify.Shrinking hiding (shrink)
 
 -- | Sample generator
 sample :: Gen a -> IO a

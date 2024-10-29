@@ -18,10 +18,10 @@ import Data.List.NonEmpty (NonEmpty (..))
 import Data.List.NonEmpty qualified as NE
 import Data.Maybe (catMaybes)
 import Test.Falsify.Gen
-import Test.Falsify.Gen.Shrinking
 import Test.Falsify.Gen.Simple
 import Test.Falsify.Range (Range)
 import Test.Falsify.Range qualified as Range
+import Test.Falsify.Shrinking
 
 {-------------------------------------------------------------------------------
   Lists

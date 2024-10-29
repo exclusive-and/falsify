@@ -13,8 +13,7 @@ import Data.Void
 import Test.Falsify.Gen
 import Test.Falsify.Gen.Choice
 import Test.Falsify.Gen.List
-import Test.Falsify.Gen.Shrinking
-import Test.Falsify.Shrinking (IsValidShrink(..))
+import Test.Falsify.Shrinking
 
 type ShrinkTree = Rose.Tree
 

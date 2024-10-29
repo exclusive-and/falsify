@@ -8,10 +8,10 @@ import Data.Falsify.Marked
 import Data.Falsify.Tree (Tree(..), Interval(..), Endpoint(..))
 import Data.Falsify.Tree qualified as Tree
 import Test.Falsify.Gen
-import Test.Falsify.Gen.Shrinking
 import Test.Falsify.Gen.Simple
 import Test.Falsify.Range (Range)
 import Test.Falsify.Range qualified as Range
+import Test.Falsify.Shrinking
 
 {-------------------------------------------------------------------------------
   Binary trees

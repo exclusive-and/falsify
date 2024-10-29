@@ -16,7 +16,6 @@ import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty)
 import Test.Falsify.Gen (Gen)
 import Test.Falsify.Gen            qualified as Gen
-import Test.Falsify.Gen.Shrinking  qualified as Gen
 import Test.Falsify.Gen.ShrinkTree qualified as Gen
 import Test.Falsify.Predicate (Predicate, (.$))
 import Test.Falsify.Predicate qualified as P
@@ -63,7 +62,7 @@ testShrinking p prop = do
 -- | Construct random path through the property's shrink tree
 genShrinkPath :: Property' e () -> Property' e' [(e, TestRun)]
 genShrinkPath prop = do
-    st    <- genWith (const Nothing) $ Gen.toShrinkTree (runProperty prop)
+    st    <- genWith (const Nothing) $ toShrinkTree (runProperty prop)
     mPath <- genWith (const Nothing) $ Gen.path resultIsValidShrink st
     aux mPath
   where
@@ -99,8 +98,8 @@ testMinimum p prop = do
         -- The property needs to be discarded; discard this one, too
         discard
       ((TestFailed initErr, initRun), shrunk) -> do
-        let explanation :: ShrinkExplanation (e, TestRun) (Maybe (), TestRun)
-            explanation = shrinkFrom
+        let explanation :: Explanation (e, TestRun) (Maybe (), TestRun)
+            explanation = shrink
                             resultIsValidShrink
                             (runProperty prop)
                             ((initErr, initRun), shrunk)
@@ -108,7 +107,10 @@ testMinimum p prop = do
             minErr    :: e
             minRun    :: TestRun
             mRejected :: Maybe [(Maybe (), TestRun)]
-            ((minErr, minRun), mRejected) = shrinkOutcome explanation
+            ((minErr, minRun), mRejected) =
+                case shrinkOutcome explanation of
+                  TotalShrink p' ns -> (p', Just ns)
+                  PartialShrink p'  -> (p', Nothing)
 
             rejected :: [TestRun]
             rejected  = maybe [] (map snd) mRejected

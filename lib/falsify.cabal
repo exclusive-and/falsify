@@ -92,7 +92,6 @@ library
       Test.Falsify.Gen.Function
       Test.Falsify.Gen.List
       Test.Falsify.Gen.Precision
-      Test.Falsify.Gen.Shrinking
       Test.Falsify.Gen.ShrinkTree
       Test.Falsify.Gen.Simple
       Test.Falsify.Gen.Std

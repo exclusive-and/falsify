@@ -68,7 +68,7 @@ data Success a = Success {
 
 data Failure e = Failure {
       failureSeed :: ReplaySeed
-    , failureRun  :: ShrinkExplanation (e, TestRun) TestRun
+    , failureRun  :: Explanation (e, TestRun) TestRun
     }
   deriving (Show)
 
@@ -131,10 +131,10 @@ falsify opts prop = do
           -- We ignore the failure message here, because this is the failure
           -- message before shrinking, which we are typically not interested in.
           TestFailed e -> do
-            let explanation :: ShrinkExplanation (e, TestRun) TestRun
+            let explanation :: Explanation (e, TestRun) TestRun
                 explanation =
-                    limitShrinkSteps (maxShrinks opts) . second snd $
-                      shrinkFrom
+                    shortenTo (maxShrinks opts) . second snd $
+                      shrink
                         resultIsValidShrink
                         (runProperty prop)
                         ((e, run), shrunk)
