@@ -7,18 +7,15 @@ import Data.Bifunctor
 import Data.Default
 import Data.Word
 import System.Random.SplitMix (SMGen)
+import System.Random.SplitMix qualified as SplitMix
+import Test.Falsify
+import Test.Falsify.Predicate ((.$))
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Prelude hiding (elem)
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.Falsify
 import Test.Tasty.HUnit (Assertion, testCase, assertFailure)
-
-import qualified System.Random.SplitMix as SplitMix
-
-import Test.Falsify.Predicate ((.$))
-import Test.Falsify.Range (Range)
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
-import qualified Test.Falsify.Range     as Range
 
 tests :: TestTree
 tests = testGroup "Demo.Blogpost" [
@@ -33,7 +30,7 @@ tests = testGroup "Demo.Blogpost" [
             , testProperty "property" $
                prop_structure
                  (reverse . reverse)
-                 (Gen.list (Range.between (0, 100)) (Gen.bool False))
+                 (list (between (0, 100)) (bool False))
                  (==)
             ]
         ]
@@ -73,8 +70,8 @@ tests = testGroup "Demo.Blogpost" [
 -- >    --falsify-replay=012f1ef548663a9b73ceaebf948d9f87a7
 prop_list :: Property ()
 prop_list = do
-    n  <- gen $ Gen.inRange $ Range.between (0, 10)
-    xs <- gen $ replicateM n $ Gen.int $ Range.between (0, 1)
+    n  <- gen $ inRange $ between (0, 10)
+    xs <- gen $ replicateM n $ int $ between (0, 1)
     assert $ P.pairwise P.eq .$ ("xs", xs)
 
 {-------------------------------------------------------------------------------
@@ -98,8 +95,8 @@ prop_structure f genInput prop = do
 
 prop_shrinking :: Property ()
 prop_shrinking = do
-    x <- gen $ Gen.int $ Range.between (0, 99)
-    y <- gen $ Gen.int $ Range.between (0, 99)
+    x <- gen $ int $ between (0, 99)
+    y <- gen $ int $ between (0, 99)
     unless (x - y == y - x) $
       testFailed "property not satisfied"
 
@@ -200,8 +197,8 @@ incomparableTrees = (
 
 listThenNum :: Gen ([Bool], Int)
 listThenNum = do
-    xs <- Gen.list (Range.between (0, 100)) $ Gen.bool False
-    n  <- Gen.int (Range.between (0, 100))
+    xs <- list (between (0, 100)) $ bool False
+    n  <- int (between (0, 100))
     return (xs, n)
 
 {-------------------------------------------------------------------------------
@@ -210,18 +207,18 @@ listThenNum = do
 
 chooseSuboptimal :: Gen a -> Gen a -> Gen a
 chooseSuboptimal g g' = do
-    b <- Gen.bool True
+    b <- bool True
     if b then g else g'
 
 chooseBad :: Gen a -> Gen a -> Gen a
 chooseBad g g' = do
     x <- g
     y <- g'
-    b <- Gen.bool True
+    b <- bool True
     return $ if b then x else y
 
 choose :: Gen a -> Gen a -> Gen a
-choose = ifS $ Gen.bool True
+choose = ifS $ bool True
 
 {-------------------------------------------------------------------------------
   Tutorial
@@ -229,32 +226,32 @@ choose = ifS $ Gen.bool True
 
 prop_multiply2_even :: Property ()
 prop_multiply2_even = do
-    x <- gen $ Gen.int $ Range.withOrigin (-100, 100) 0
+    x <- gen $ int $ withOrigin (-100, 100) 0
     unless (even (x * 2)) $ testFailed "not even"
 
 prop_multiply3_even :: Property ()
 prop_multiply3_even = do
-    x <- gen $ Gen.int $ Range.withOrigin (-100, 100) 0
+    x <- gen $ int $ withOrigin (-100, 100) 0
     unless (even (x * 3)) $ testFailed "not even"
 
 prop_multiply3_even_pred :: Property ()
 prop_multiply3_even_pred = do
-    x <- gen $ Gen.int $ Range.withOrigin (-100, 100) 0
+    x <- gen $ int $ withOrigin (-100, 100) 0
     assert $ P.even `P.dot` P.fn ("multiply3", (* 3)) .$ ("x", x)
 
 prop_skew :: Double -> Property ()
 prop_skew skew = do
-    xs <- gen $ Gen.list rangeListLen $ Gen.inRange rangeValues
-    x  <- gen $ Gen.inRange rangeValues
+    xs <- gen $ list rangeListLen $ inRange rangeValues
+    x  <- gen $ inRange rangeValues
     collect "elem" [x `elem` xs]
   where
     rangeListLen, rangeValues :: Range Word
-    rangeListLen = Range.between (0, 10)
-    rangeValues  = Range.skewedBy skew (0, 100)
+    rangeListLen = between (0, 10)
+    rangeValues  = skewedBy skew (0, 100)
 
 prop_fn :: Property ()
 prop_fn = do
-    Fn (f :: [Int] -> Bool) <- gen $ Gen.fun $ Gen.bool False
+    Fn (f :: [Int] -> Bool) <- gen $ fun $ bool False
     assert $
          P.eq
          `P.on` P.fn ("f", f)
@@ -263,9 +260,9 @@ prop_fn = do
 
 prop_mapFilter :: Property ()
 prop_mapFilter = do
-    Fn (f :: Int -> Int)  <- gen $ Gen.fun genInt
-    Fn (p :: Int -> Bool) <- gen $ Gen.fun genBool
-    xs :: [Int] <- gen $ Gen.list (Range.between (0, 100)) genInt
+    Fn (f :: Int -> Int)  <- gen $ fun genInt
+    Fn (p :: Int -> Bool) <- gen $ fun genBool
+    xs :: [Int] <- gen $ list (between (0, 100)) genInt
     assert $
        P.eq
       `P.split` (P.fn ("map f", map f), P.fn ("filter p", filter p))
@@ -274,34 +271,34 @@ prop_mapFilter = do
       .$ ("xs", xs)
   where
     genInt :: Gen Int
-    genInt = Gen.int $ Range.between (0, 100)
+    genInt = int $ between (0, 100)
 
     genBool :: Gen Bool
-    genBool = Gen.bool False
+    genBool = bool False
 
 {-------------------------------------------------------------------------------
   Testing shrinking
 -------------------------------------------------------------------------------}
 
 below :: Word64 -> Gen Word64
-below n = (`mod` n) <$> Gen.prim
+below n = (`mod` n) <$> prim
 
 prop_below_shrinking :: Property ()
 prop_below_shrinking = do
-    n <- gen $ Gen.inRange $ Range.between (1, 1_000)
+    n <- gen $ inRange $ between (1, 1_000)
     testShrinkingOfGen P.ge $ below n
 
 naiveList :: Range Int -> Gen a -> Gen [a]
 naiveList r g = do
-    n  <- Gen.inRange r
+    n  <- inRange r
     replicateM n g
 
 prop_naiveList_minimum :: Property ()
 prop_naiveList_minimum =
     testMinimum (P.elem .$ ("expected", [[0,1], [1,0]])) $ do
       xs <- gen $ naiveList
-                    (Range.between (0, 10))
-                    (Gen.int (Range.between (0, 1)))
+                    (between (0, 10))
+                    (int (between (0, 1)))
       case P.eval $ P.pairwise P.eq .$ ("xs", xs) of
         Left _   -> testFailed xs
         Right () -> return ()
@@ -309,9 +306,9 @@ prop_naiveList_minimum =
 prop_list_minimum :: Property ()
 prop_list_minimum =
     testMinimum (P.elem .$ ("expected", [[0,1], [1,0]])) $ do
-      xs <- gen $ Gen.list
-                    (Range.between (0, 10))
-                    (Gen.int (Range.between (0, 1)))
+      xs <- gen $ list
+                    (between (0, 10))
+                    (int (between (0, 1)))
       case P.eval $ P.pairwise P.eq .$ ("xs", xs) of
         Left _   -> testFailed xs
         Right () -> return ()

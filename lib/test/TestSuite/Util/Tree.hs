@@ -8,7 +8,7 @@ module TestSuite.Util.Tree (
   , isHeightBalanced
   ) where
 
-import Test.Falsify.Generator (Tree(..))
+import Data.Falsify.Tree (Tree(..))
 
 {-------------------------------------------------------------------------------
   Tree stats

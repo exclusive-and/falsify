@@ -1,19 +1,17 @@
 module TestSuite.Prop.Generator.Marking (tests) where
 
 import Control.Monad
+import Data.Falsify.Marked
 import Data.Map (Map)
+import Data.Map qualified as Map
 import Data.Maybe (catMaybes)
+import Data.Set qualified as Set
 import Data.Word
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Sanity
 import Test.Tasty
-import Test.Tasty.Falsify
-
-import qualified Data.Map as Map
-import qualified Data.Set as Set
-
-import Test.Falsify.Generator (Marked(..), Mark(..))
-
-import qualified Test.Falsify.Generator as Gen hiding (mark)
-import qualified Test.Falsify.Predicate as P
+import Test.Tasty.Falsify hiding (mark)
 
 import TestSuite.Util.List
 
@@ -49,7 +47,7 @@ mark x = flip Marked x <$> (aux <$> Gen.prim)
 genMarkedList :: Gen [(Word, Word64)]
 genMarkedList = do
     xs <- forM [0 .. 9] (\i -> mark ((i, ) <$> Gen.prim))
-    catMaybes <$> Gen.selectAllKept xs
+    catMaybes <$> selectAllKept xs
 
 prop_list_shrinking :: Property ()
 prop_list_shrinking =

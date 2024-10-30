@@ -2,23 +2,29 @@ module TestSuite.Prop.Generator.Compound (tests) where
 
 import Control.Monad
 import Data.Default
+import Data.Falsify.List (Permutation, applyPermutation)
+import Data.Falsify.Tree (Tree(..))
 import Data.Foldable (toList)
+import Data.Tree qualified as Rose
 import Data.Word
+import Test.Falsify.Gen (Gen)
+import Test.Falsify.Gen              qualified as Gen
+import Test.Falsify.Gen.Choice       qualified as Gen
+import Test.Falsify.Gen.Distribution qualified as Gen
+import Test.Falsify.Gen.List         qualified as Gen
+import Test.Falsify.Gen.ShrinkTree (ShrinkTree)
+import Test.Falsify.Gen.ShrinkTree   qualified as Gen
+import Test.Falsify.Gen.Simple       qualified as Gen
+import Test.Falsify.Gen.Tree         qualified as Gen
+import Test.Falsify.Predicate (Predicate, (.$))
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Range qualified as Range
+import Test.Falsify.Sanity
+import Test.Falsify.Shrinking hiding (shrink)
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import qualified Data.Tree as Rose
-
-import Test.Falsify.Predicate (Predicate, (.$))
-import Test.Falsify.Generator (ShrinkTree, Permutation, Tree(..))
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
-import qualified Test.Falsify.Range     as Range
-
 import TestSuite.Util.List
-
-import qualified TestSuite.Util.Tree as Tree
+import TestSuite.Util.Tree qualified as Tree
 
 tests :: TestTree
 tests = testGroup "TestSuite.Prop.Generator.Compound" [
@@ -158,7 +164,7 @@ prop_perm_minimum :: Word -> Property ()
 prop_perm_minimum n =
     testMinimum (P.satisfies ("suffixIsUnchanged", suffixIsUnchanged)) $ do
       perm <- gen $ Gen.permutation 10
-      let shuffled = Gen.applyPermutation perm [0 .. 9]
+      let shuffled = applyPermutation perm [0 .. 9]
       when (shuffled !! fromIntegral n /= n) $ testFailed perm
   where
     suffixIsUnchanged :: Permutation -> Bool

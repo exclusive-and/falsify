@@ -2,25 +2,23 @@
 -- Functions", John Hughes, 2020, LNCS 12053.
 module Demo.HowToSpecifyIt (tests) where
 
+import Prelude
+
 import Control.Applicative
 import Control.Monad
 import Data.Default
 import Data.Function
 import Data.List (sort)
+import Data.List qualified as L
+import Data.Tree qualified as Rose
 import Data.Vector (Vector, (!))
+import Data.Vector qualified as V
 import GHC.Generics (Generic)
+import Test.Falsify.Predicate ((.$))
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Prelude hiding (Branch, Leaf, elem)
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import qualified Data.List   as L
-import qualified Data.Tree   as Rose
-import qualified Data.Vector as V
-
-import Test.Falsify.Predicate ((.$))
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Range     as Range
-import qualified Test.Falsify.Predicate as P
 
 tests :: TestTree
 tests = testGroup "Demo.HowToSpecifyIt" [
@@ -89,8 +87,8 @@ tests = testGroup "Demo.HowToSpecifyIt" [
 
 forAllLists :: ([Int] -> Property a) -> Property a
 forAllLists p = do
-    xs <- gen $ Gen.list (Range.between (0, 100)) $
-            Gen.inRange (Range.between (0, 100))
+    xs <- gen $ list (between (0, 100)) $
+            inRange (between (0, 100))
     p xs
 
 prop_reverse_reverse :: Property ()
@@ -210,13 +208,13 @@ fromAscList = \xs ->
 -------------------------------------------------------------------------------}
 
 genBST :: forall k v. Ord k => Gen k -> Gen v -> Gen (BST k v)
-genBST k v = fromList <$> Gen.list (Range.between (0, 100)) ((,) <$> k <*> v)
+genBST k v = fromList <$> list (between (0, 100)) ((,) <$> k <*> v)
 
 genKey :: Gen Int
-genKey = Gen.inRange $ Range.between (0, 100)
+genKey = inRange $ between (0, 100)
 
 genValue :: Gen Int
-genValue = Gen.inRange $ Range.between (0, 100)
+genValue = inRange $ between (0, 100)
 
 {-------------------------------------------------------------------------------
   Section 4: "Approaches to Writing Properties"
@@ -409,7 +407,7 @@ prop_insert_union = do
 genEquivPair :: Gen (BST Int Int, BST Int Int)
 genEquivPair = do
     t1  <- genBST genKey genValue
-    kvs <- Gen.shuffle (toList t1)
+    kvs <- shuffle (toList t1)
     return (t1, fromList kvs)
 
 showPair :: (BST Int Int, BST Int Int) -> String
@@ -537,7 +535,7 @@ prop_measure :: Property ()
 prop_measure = prop_measureWith genKey
 
 genSmallKey :: Gen Int
-genSmallKey = Gen.inRange $ Range.skewedBy 1 (0, 100)
+genSmallKey = inRange $ skewedBy 1 (0, 100)
 
 prop_measure_small :: Property ()
 prop_measure_small = prop_measureWith genSmallKey

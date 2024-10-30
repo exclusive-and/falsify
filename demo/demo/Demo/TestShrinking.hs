@@ -1,11 +1,10 @@
 module Demo.TestShrinking (tests) where
 
 import Data.Default
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
 
 tests :: TestTree
 tests = testGroup "Demo.TestShrinking" [
@@ -19,13 +18,11 @@ tests = testGroup "Demo.TestShrinking" [
 
 prop_prim :: Property ()
 prop_prim =
-    testShrinkingOfGen P.ge $
-      Gen.prim
+    testShrinkingOfGen P.ge $ prim
 
 prop_mod1 :: Property ()
 prop_mod1 =
-    testShrinkingOfGen P.ge $
-      (`mod` 100) <$> Gen.prim
+    testShrinkingOfGen P.ge $ (`mod` 100) <$> prim
 
 -- The test will result in a test failure
 --
@@ -34,7 +31,7 @@ prop_mod1 =
 prop_mod2 :: Property ()
 prop_mod2 =
     testShrinking P.ge $ do
-      x <- (`mod` 100) <$> gen Gen.prim
+      x <- (`mod` 100) <$> gen prim
       testFailed x
 
 

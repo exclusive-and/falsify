@@ -1,19 +1,21 @@
 module TestSuite.Prop.Generator.Simple (tests) where
 
 import Control.Monad (unless)
+import Data.Bits
 import Data.List (intercalate)
+import Data.Proxy
+import Data.Typeable
 import Data.Word
+import Test.Falsify.Gen         qualified as Gen
+import Test.Falsify.Gen.Simple  qualified as Gen
+import Test.Falsify.Predicate ((.$))
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Range     qualified as Range
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.Falsify
 
-import Test.Falsify.Predicate ((.$))
 
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
-import qualified Test.Falsify.Range     as Range
-import Data.Bits
-import Data.Proxy
-import Data.Typeable
 
 tests :: TestTree
 tests = testGroup "TestSuite.Prop.Generator.Simple" [

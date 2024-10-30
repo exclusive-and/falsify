@@ -1,14 +1,14 @@
 module TestSuite.Prop.Generator.Precision (tests) where
 
 import Control.Monad
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Gen.Precision (WordN(..))
+import Test.Falsify.Gen.Precision qualified as Gen
+import Test.Falsify.Predicate as P
+import Test.Falsify.Range (Precision(..), ProperFraction(..))
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import Test.Falsify.Generator (WordN(..))
-import Test.Falsify.Range (Precision(..), ProperFraction(..))
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
 
 tests :: TestTree
 tests = testGroup "TestSuite.Prop.Generator.Precision" [

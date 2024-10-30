@@ -1,14 +1,12 @@
 module Demo.Distribution (tests) where
 
+import Prelude hiding (properFraction)
+
 import Data.List (intercalate)
 import Data.Word
+import Test.Falsify.Prelude
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import Test.Falsify.Range (Precision(..))
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Range     as Range
 
 tests :: TestTree
 tests = testGroup "Demo.Distribution" [
@@ -33,7 +31,7 @@ tests = testGroup "Demo.Distribution" [
 
 prop_prim :: Word -> Property ()
 prop_prim total = do
-    x <- gen $ Gen.prim
+    x <- gen $ prim
     collect "bucket" [bucket bucketSize x]
   where
     bucketSize :: Word64
@@ -41,17 +39,17 @@ prop_prim total = do
 
 prop_fraction :: Precision -> Property ()
 prop_fraction p = do
-    x <- gen $ Gen.properFraction p
+    x <- gen $ properFraction p
     collect "x" [x]
 
 prop_integral :: Word -> Property ()
 prop_integral total = do
-    x <- gen $ Gen.inRange (Range.between (0, total - 1))
+    x <- gen $ inRange (between (0, total - 1))
     collect "x" [x]
 
 prop_frequency :: Word -> Word -> Word -> Property ()
 prop_frequency a b c = do
-    x <- gen $ Gen.frequency [
+    x <- gen $ frequency [
         (a, pure 'a')
       , (b, pure 'b')
       , (c, pure 'c')

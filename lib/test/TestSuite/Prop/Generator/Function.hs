@@ -2,17 +2,18 @@ module TestSuite.Prop.Generator.Function (tests) where
 
 import Control.Monad
 import Data.Default
+import Data.Set qualified as Set
 import Data.Word
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Gen.Function (Fun)
+import Test.Falsify.Gen.Function qualified as Gen
+import Test.Falsify.Gen.Simple qualified as Gen
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Prelude (pattern Fn, pattern Fn2, pattern Fn3)
+import Test.Falsify.Range qualified as Range
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import qualified Data.Set as Set
-
-import Test.Falsify.Generator (Fun)
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
-import qualified Test.Falsify.Range as Range
 
 tests :: TestTree
 tests = testGroup "TestSuite.Prop.Generator.Function" [

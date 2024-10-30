@@ -3,13 +3,13 @@ module TestSuite.Prop.Generator.Shrinking (tests) where
 import Control.Monad
 import Data.Default
 import Data.Word
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Sanity
+import Test.Falsify.Shrinking qualified as Gen
+import Test.QuickCheck qualified as QuickCheck
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import qualified Test.QuickCheck as QuickCheck
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
 
 import TestSuite.Util.List
 

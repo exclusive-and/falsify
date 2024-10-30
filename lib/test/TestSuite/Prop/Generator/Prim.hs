@@ -6,11 +6,11 @@ import Control.Monad
 import Control.Selective
 import Data.Default
 import Data.Word
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Predicate qualified as P
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.Falsify
-
-import qualified Test.Falsify.Generator as Gen
-import qualified Test.Falsify.Predicate as P
 
 import TestSuite.Util.List
 

@@ -1,15 +1,17 @@
 module TestSuite.Sanity.Selective (tests) where
 
 import Control.Selective
+import Data.Falsify.Tree (Tree(..))
 import Data.Word
 import System.Timeout
+import Test.Falsify.Gen (Gen)
+import Test.Falsify.Gen qualified as Gen
+import Test.Falsify.Interactive (sample, shrink')
+import Test.Falsify.Sanity
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Test.Falsify.Generator (Gen, Tree(..))
-import Test.Falsify.Interactive (sample, shrink')
 
-import qualified Test.Falsify.Generator as Gen
 
 tests :: TestTree
 tests = testGroup "TestSuite.Sanity.Selective" [
