@@ -13,6 +13,8 @@ module Test.Falsify (
   , TotalDiscarded(..)
     -- * Test algorithm
   , falsify
+    -- * Falsify prelude
+  , module Test.Falsify.Prelude
   ) where
 
 import Prelude hiding (log)
@@ -27,6 +29,8 @@ import Test.Falsify.Result
 import Test.Falsify.SampleTree (SampleTree)
 import Test.Falsify.SampleTree qualified as SampleTree
 import Test.Falsify.Shrinking
+
+import Test.Falsify.Prelude qualified
 
 {-------------------------------------------------------------------------------
   Options

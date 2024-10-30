@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               falsify
-version:            0.2.1
+version:            0.3.0
 synopsis:           Property-based testing with internal integrated shrinking
 description:        This library provides property based testing with support
                     for internal integrated shrinking: integrated in the sense
@@ -84,6 +84,10 @@ library
   import:
       lang
   exposed-modules:
+      Data.Falsify.Integer
+      Data.Falsify.List
+      Data.Falsify.Marked
+      Data.Falsify.Tree
       Test.Falsify
       Test.Falsify.Gen
       Test.Falsify.Gen.Choice
@@ -98,25 +102,19 @@ library
       Test.Falsify.Gen.Tree
       Test.Falsify.Interactive
       Test.Falsify.Predicate
+      Test.Falsify.Prelude
       Test.Falsify.Property
       Test.Falsify.Range
-
-      -- For consistency with the other tasty runners, we places these modules
-      -- in the @Test.Tasty.*@ hiearchy instead of @Test.Falsify.*@.
+      Test.Falsify.Sanity
+      Test.Falsify.Shrinking
       Test.Tasty.Falsify
   other-modules:
       Test.Falsify.Pretty
       Test.Falsify.ReplaySeed
       Test.Falsify.Result
       Test.Falsify.SampleTree
-      Test.Falsify.Sanity
       Test.Falsify.Search
-      Test.Falsify.Shrinking
 
-      Data.Falsify.Integer
-      Data.Falsify.List
-      Data.Falsify.Marked
-      Data.Falsify.Tree
   hs-source-dirs:
       src
   build-depends:

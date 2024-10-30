@@ -5,12 +5,8 @@ module Test.Falsify.Interactive (
   , sample
   , shrink
   , shrink'
-    -- * Re-exports
-  , module Test.Falsify.Property
-    -- ** Functions
-  , pattern Gen.Fn
-  , pattern Gen.Fn2
-  , pattern Gen.Fn3
+    -- * Falsify prelude
+  , module Test.Falsify.Prelude
   ) where
 
 import Data.Bifunctor
@@ -18,14 +14,16 @@ import Data.Default
 import Data.List.NonEmpty (NonEmpty(..))
 import Data.List.NonEmpty qualified as NE
 import System.Random.SplitMix
-import Test.Falsify     qualified as Driver
+import Test.Falsify (Failure, Success, TotalDiscarded)
+import Test.Falsify qualified as Falsify
 import Test.Falsify.Gen (Gen, runGen)
-import Test.Falsify.Gen.Function qualified as Gen
 import Test.Falsify.Property
 import Test.Falsify.ReplaySeed
 import Test.Falsify.SampleTree qualified as SampleTree
 import Test.Falsify.Sanity
 import Test.Falsify.Shrinking hiding (shrink)
+
+import Test.Falsify.Prelude qualified
 
 -- | Sample generator
 sample :: Gen a -> IO a
@@ -63,16 +61,16 @@ falsify = fmap (fmap NE.last) . falsify'
 
 -- | Generalization of 'falsify' that reports the full shrink history
 falsify' :: forall e a. Property' e a -> IO (Maybe (NonEmpty e))
-falsify' = fmap aux . Driver.falsify def
+falsify' = fmap aux . Falsify.falsify def
   where
     aux ::
          ( ReplaySeed
-         , [Driver.Success a]
-         , Driver.TotalDiscarded
-         , Maybe (Driver.Failure e)
+         , [Success a]
+         , TotalDiscarded
+         , Maybe (Failure e)
          )
       -> Maybe (NonEmpty e)
     aux (_seed, _successes, _discarded, failure) =
         case failure of
           Nothing -> Nothing
-          Just f  -> Just $ shrinkHistory $ first fst $ Driver.failureRun f
+          Just f  -> Just $ shrinkHistory $ first fst $ Falsify.failureRun f

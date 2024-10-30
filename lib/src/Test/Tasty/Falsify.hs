@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
+
 -- | Support for @falsify@ in the @tasty@ framework
 --
 -- As is customary, this also re-exports parts of the @falsify@ API, but not
@@ -11,14 +13,8 @@ module Test.Tasty.Falsify (
   , Verbose(..)
   , ExpectFailure(..)
   , testPropertyWith
-    -- * Re-exports
-  , module Test.Falsify.Property
-    -- ** Generators
-  , Gen
-    -- ** Functions
-  , pattern Gen.Fn
-  , pattern Gen.Fn2
-  , pattern Gen.Fn3
+    -- * Falsify Prelude
+  , module Test.Falsify.Prelude
   ) where
 
 import Prelude hiding (log)
@@ -27,22 +23,17 @@ import Data.Default
 import Data.Maybe
 import Data.Proxy
 import Data.Tagged
+import Options.Applicative qualified as Opts
+import Test.Falsify
+import Test.Falsify.Pretty
+import Test.Falsify.ReplaySeed
 import Test.Tasty
 import Test.Tasty.Options (IsOption(..), OptionSet)
+import Test.Tasty.Options qualified as Tasty
 import Test.Tasty.Providers (IsTest(..))
+import Test.Tasty.Providers qualified as Tasty
 
-import qualified Test.Tasty.Options as Tasty
-
-import Test.Falsify
-import Test.Falsify.Gen (Gen)
-import Test.Falsify.Pretty
-import Test.Falsify.Property
-import Test.Falsify.ReplaySeed
-
-import qualified Options.Applicative  as Opts
-import qualified Test.Tasty.Providers as Tasty
-
-import qualified Test.Falsify.Gen.Function as Gen
+import Test.Falsify.Prelude qualified
 
 {-------------------------------------------------------------------------------
   Tasty integration
